@@ -22,7 +22,7 @@ export const LeftSidebar = () => {
   console.log(albums)
 
   return (
-    <div className='h-ful flex flex-col gap-2'>
+    <div className='h-full flex flex-col gap-2'>
     
         {/* Navigation Menu */}
         <div className='rounded-lg bg-zinc-900 p-4'>
