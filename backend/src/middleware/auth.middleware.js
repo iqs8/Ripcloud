@@ -1,4 +1,4 @@
-import { clerkClient } from "@clerk/express";
+import { clerkClient , getAuth} from "@clerk/express";
 
 export const protectRoute = async (req, resizeBy, next) => {
     if (!req.auth.userId){
@@ -9,8 +9,9 @@ export const protectRoute = async (req, resizeBy, next) => {
 
 export const requireAdmin = async(req, resizeBy, next) => {
     try {
-        const currentuser = await clerkClient.users.getUser(req.auth.userId);
-        const isAdmin = process.env.ADMMIN_EMAIL === currentuser.primaryEmailAddress?.emailAddress;
+        const { userId } = getAuth(req);          // new pattern
+        const currentUser = await clerkClient.users.getUser(userId);
+        const isAdmin = process.env.ADMIN_EMAIL === currentUser.primaryEmailAddress?.emailAddress;
 
         if (!isAdmin){
             resizeBy.status(403).json({message: "Unauthorized - you must be admin"})
