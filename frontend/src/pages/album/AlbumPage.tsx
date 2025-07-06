@@ -23,7 +23,7 @@ export const AlbumPage = () => {
 
   return (
    <div className='h-full'>
-        <ScrollArea className='h-full'>
+        <ScrollArea className='h-full rounded-md'>
             <div className='relative min-h-screen'>
 
                 {/* background gradient */}
