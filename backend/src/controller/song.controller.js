@@ -4,7 +4,7 @@ export const getAllSongs = async(req, res, next) => {
     try {
         // -1 for newset to oldest, 1 for reverse
         const songs = await Song.find().sort({createdAt: -1})
-        resizeBy.json(songs)
+        res.json(songs)
 
     } catch (error) {
         next(error)

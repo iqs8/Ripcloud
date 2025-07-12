@@ -4,10 +4,10 @@ import {Album} from "../models/album.model.js"
 
 export const getStats = async (req, res, next) => {
     try {
-        const [totalAlbums, totalSongs, totalUsers, ,uniqueArtists] = await Promise.all([
+        const [totalAlbums, totalSongs, totalUsers, uniqueArtists] = await Promise.all([
+            Album.countDocuments(),
             Song.countDocuments(),
             User.countDocuments(),
-            Album.countDocuments(),
 
             Song.aggregate([
                 {
@@ -29,9 +29,9 @@ export const getStats = async (req, res, next) => {
 
         res.status(200).json({
             totalAlbums,
-            totalUsers,
             totalSongs,
-            uniqueArtists: uniqueArtists[0]?.count || 0
+            totalUsers,
+            totalArtists: uniqueArtists[0]?.count || 0
         })
     } catch (error) {
         next(error)

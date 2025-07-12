@@ -40,12 +40,18 @@ app.use('/api/admin', adminRoutes)
 app.use('/api/auth', authRoutes)
 app.use('/api/songs', songRoutes)
 app.use('/api/albums', albumRoutes)
-app.use('/api/stat', statRoutes)
+app.use('/api/stats', statRoutes)
 
 //error handler
 app.use((err, req, res, next) => {
-    res.status(500).json({ message: process.env.NODE_ENV === "production" ? "Internal server error" : err.message })
-})
+    if (res.headersSent) {
+        // Let Express handle the error (logging, closing connection, etc.)
+        return next(err);
+    }
+    // Safe to send your error response
+    else {res.status(500).json({ message: "Internal server error" })
+    };
+});
 
 app.listen(5000, () =>{
     console.log("server is listening in port 5000")
