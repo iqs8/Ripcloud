@@ -20,11 +20,12 @@ export const FriendsActivity = () => {
         <div className='p-4 flex justify-between items-center border-zinc-800'>
             <div className='flex items-center gap-2'>
                 <Users className='size-5 shrink-0'/>
-                <h2 className='font-semibold'>What they're listening to</h2> 
+                <h2 className='font-semibold'>Friend's Activity</h2> 
             </div>
         </div>
-        {!user && <LoginPrompt/>}
-        <ScrollArea className='flex-1'>
+        {/* {!user && <LoginPrompt/>}  for now always true, dont' display users in scroll area until friends implemented*/}
+        {true && <LoginPrompt/>}   
+        {/* <ScrollArea className='flex-1'>
             <div className='p-4 space-y-4'>
                 {users.map((user) => (
                     <div 
@@ -44,7 +45,7 @@ export const FriendsActivity = () => {
                             <div className='flex-1 min-w-0'>
                                 <div className='flex items-center gap-2'>
                                     <span className='font-medium text-sm text-white'>{user.fullName}</span>
-                                    {isPlaying && <Music className='size-3.5 text-emerald-400 shrink-0'/>}
+                                    {isPlaying && <Music className='size-3.5 text-purple-400 shrink-0'/>}
                                 </div>
                                 {isPlaying ? (
                                     <div className='mt-1'>
@@ -59,7 +60,7 @@ export const FriendsActivity = () => {
                     </div>
                 ))}
             </div>
-        </ScrollArea>
+        </ScrollArea> */}
     </div>
   )
 }
@@ -68,18 +69,18 @@ const LoginPrompt = () => (
 	<div className='h-full flex flex-col items-center justify-center p-6 text-center space-y-4'>
 		<div className='relative'>
 			<div
-				className='absolute -inset-1 bg-gradient-to-r from-emerald-500 to-sky-500 rounded-full blur-lg
+				className='absolute -inset-1 bg-gradient-to-r from-purple-500 to-sky-500 rounded-full blur-lg
        opacity-75 animate-pulse'
 				aria-hidden='true'
 			/>
 			<div className='relative bg-zinc-900 rounded-full p-4'>
-				<HeadphonesIcon className='size-8 text-emerald-400' />
+				<HeadphonesIcon className='size-8 text-purple-400' />
 			</div>
 		</div>
 
 		<div className='space-y-2 max-w-[250px]'>
-			<h3 className='text-lg font-semibold text-white'>See What Friends Are Playing</h3>
-			<p className='text-sm text-zinc-400'>Login to discover what music your friends are enjoying right now</p>
+			<h3 className='text-lg font-semibold text-white'>Friends feature coming soon</h3>
+			<p className='text-sm text-zinc-400'>See what your friends are listening too and share your music with them</p>
 		</div>
 	</div>
 );

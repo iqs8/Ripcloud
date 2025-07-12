@@ -6,7 +6,7 @@ export const Header = () => {
     <div className='flex items-center justify-between'>
 			<div className='flex items-center gap-3 mb-8'>
 				<Link to='/' className='rounded-lg'>
-					<img src='/spotify.png' className='size-10 text-black' />
+					<img src='/Ripcloud.png' className='h-14 w-auto text-black' />
 				</Link>
 				<div>
 					<h1 className='text-3xl font-bold'>Music Manager</h1>
