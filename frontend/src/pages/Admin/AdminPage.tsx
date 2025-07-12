@@ -6,8 +6,8 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Music } from 'lucide-react';
 import { TabsContent } from '@radix-ui/react-tabs';
 import { SongsTabContent } from './components/SongsTabContent';
-import { AllbumsTabContent } from './components/AllbumsTabContent';
 import { useMusicStore } from '@/stores/useMusicStore';
+import { AlbumsTabContent } from './components/AlbumsTabContent';
 
 export const AdminPage = () => {
 
@@ -46,7 +46,7 @@ export const AdminPage = () => {
                 <SongsTabContent/>
             </TabsContent>
             <TabsContent value='albums'>
-                <AllbumsTabContent />
+                <AlbumsTabContent/>
             </TabsContent>
         </Tabs>
 

@@ -1,6 +1,7 @@
 import {Song} from "../models/song.model.js"
 import {Album} from "../models/album.model.js"
 import cloudinary from "../lib/cloudinary.js"
+import fs from "fs";
 
 //helper for cloudinary uploads
 const uploadToCloudinary = async (file) => {
@@ -10,6 +11,18 @@ const uploadToCloudinary = async (file) => {
     } catch (error) {
         console.log("error in uploadToCloudinary", error)
         throw new Error("Error uploading to cloudinary")
+    }
+}
+
+const cleanupTempFile = async (file) => {
+    try {
+        if (file && file.tempFilePath) {
+            await fs.promises.unlink(file.tempFilePath)
+            console.log(`Cleaned up temp file: ${file.tempFilePath}`)
+        }
+    } catch (error) {
+        console.log("Error cleaning up temp file:", error)
+        // Don't throw error for cleanup failures
     }
 }
 
@@ -24,6 +37,9 @@ export const createSong = async (req, res, next) => {
 
         const audioUrl = await uploadToCloudinary(audioFile);
         const imageUrl = await uploadToCloudinary(imageFile);
+
+        await cleanupTempFile(audioFile);
+        await cleanupTempFile(imageFile);
 
         const song = new Song({
             title,
@@ -79,6 +95,8 @@ export const createAlbum = async (req, res, next) => {
         const {imageFile} = req.files
 
         const imageUrl = await uploadToCloudinary(imageFile)
+
+        await cleanupTempFile(imageFile);
 
         const album = new Album({
             title, 
