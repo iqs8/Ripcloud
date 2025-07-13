@@ -1,11 +1,27 @@
 import { Router } from "express"
 import { Album } from "../models/album.model.js"
+import { getAuth } from "@clerk/express";
 
+
+export const getAllUserAlbums = async (req, res, next) => {
+    try {
+        const { userId } = getAuth(req);
+        console.log("User token/userId:", userId);
+
+        // Only return albums where artist is "Default" or the user's token
+        const albums = await Album.find({
+            artist: { $in: ["Default", userId] }
+        });
+        res.status(200).json(albums)
+    } catch (error) {
+        next(error)
+    }
+}
 
 export const getAllAlbums = async (req, res, next) => {
     try {
-        const albums = await Album.find();
-        res.status(200).json(albums)
+        const albums = await Album.find().populate("songs");
+        res.status(200).json(albums);
     } catch (error) {
         next(error)
     }

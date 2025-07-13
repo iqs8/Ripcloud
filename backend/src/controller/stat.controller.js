@@ -1,6 +1,7 @@
 import {Song} from "../models/song.model.js"
 import {User} from "../models/user.models.js"
 import {Album} from "../models/album.model.js"
+import { getAuth } from "@clerk/express";
 
 export const getStats = async (req, res, next) => {
     try {
@@ -37,3 +38,27 @@ export const getStats = async (req, res, next) => {
         next(error)
     }
 }
+
+export const getUserStats = async (req, res, next) => {
+    try {
+        const { userId } = getAuth(req);
+        if (!userId) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+
+        // Count albums and songs where artist matches userId
+        const [albumCount, songCount] = await Promise.all([
+            Album.countDocuments({ artist: userId }),
+            Song.countDocuments({ artist: userId })
+        ]);
+
+        res.status(200).json({
+            totalAlbums: albumCount,
+            totalSongs: songCount,
+            totalStorage: songCount,
+            totalFriends: 0
+        });
+    } catch (error) {
+        next(error);
+    }
+};

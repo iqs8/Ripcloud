@@ -4,7 +4,7 @@ import { useMusicStore } from "@/stores/useMusicStore";
 import { Calendar, Trash2 } from "lucide-react";
 
 const SongsTable = () => {
-	const { songs, isLoading, error, deleteSong } = useMusicStore();
+	const { allSongs, isLoading, error, deleteSong } = useMusicStore();
 
 	if (isLoading) {
 		return (
@@ -35,7 +35,7 @@ const SongsTable = () => {
 			</TableHeader>
 
 			<TableBody>
-				{songs.map((song) => (
+				{allSongs.map((song) => (
 					<TableRow key={song._id} className='hover:bg-zinc-800/50'>
 						<TableCell>
 							<img src={song.imageUrl} alt={song.title} className='size-10 rounded object-cover' />

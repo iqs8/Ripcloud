@@ -1,38 +1,38 @@
 import { useMusicStore } from '@/stores/useMusicStore'
-import { Library, ListMusic, PlayCircle, Users2 } from 'lucide-react';
+import { HardDrive, Library, ListMusic, PlayCircle, Users2 } from 'lucide-react';
 import React from 'react'
 import { StatsCard } from './StatsCard';
 
 export const DashboardStats = () => {
 
-  const {stats} = useMusicStore()
+  const {userStats} = useMusicStore()
 
   const statsData = [
 		{
 			icon: ListMusic,
 			label: "Total Songs",
-			value: stats.totalSongs.toString(),
+			value: userStats.totalSongs.toString(),
 			bgColor: "bg-emerald-500/10",
 			iconColor: "text-emerald-500",
 		},
 		{
 			icon: Library,
 			label: "Total Albums",
-			value: stats.totalAlbums.toString(),
+			value: userStats.totalAlbums.toString(),
 			bgColor: "bg-violet-500/10",
 			iconColor: "text-violet-500",
 		},
 		{
 			icon: Users2,
-			label: "Total Artists",
-			value: stats.totalArtists.toString(),
+			label: "Total Friends",
+			value: userStats.totalFriends.toString(),
 			bgColor: "bg-orange-500/10",
 			iconColor: "text-orange-500",
 		},
 		{
-			icon: PlayCircle,
-			label: "Total Users",
-			value: stats.totalUsers.toLocaleString(),
+			icon: HardDrive,
+			label: "Total Storage Used",
+			value: userStats.totalStorage.toLocaleString(),
 			bgColor: "bg-sky-500/10",
 			iconColor: "text-sky-500",
 		},

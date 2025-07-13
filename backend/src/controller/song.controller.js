@@ -1,11 +1,25 @@
 import {Song} from "../models/song.model.js"
+import { getAuth } from "@clerk/express";
 
+export const getAllUserSongs = async(req, res, next) => {
+    try {
+        const { userId } = getAuth(req);
+        console.log("User token/userId:", userId);
+
+        // Only return songs where artist is "Default" or the user's token
+        const songs = await Song.find({
+            artist: { $in: ["Default", userId] }
+        }).sort({createdAt: -1});
+        res.json(songs)
+    } catch (error) {
+        next(error)
+    }
+}
 export const getAllSongs = async(req, res, next) => {
     try {
         // -1 for newset to oldest, 1 for reverse
         const songs = await Song.find().sort({createdAt: -1})
         res.json(songs)
-
     } catch (error) {
         next(error)
     }

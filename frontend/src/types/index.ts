@@ -25,3 +25,10 @@ export interface Stats {
     totalUsers: number;
     totalArtists: number;
 }
+
+export interface UserStats {
+    totalSongs: number;
+    totalAlbums: number;
+    totalFriends: number;
+    totalStorage: number;
+}

@@ -43,7 +43,7 @@ export const LeftSidebar = () => {
                     }))}>
 
                       <MessageCircle className='mr-2 size-5'/>
-                      <span className='hidden md:inline'>Home</span>
+                      <span className='hidden md:inline'>Messages</span>
                     </Link>
                 </SignedIn>
             </div>

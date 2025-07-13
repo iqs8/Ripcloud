@@ -11,16 +11,16 @@ import { AlbumsTabContent } from './components/AlbumsTabContent';
 
 export const UploadPage = () => {
 
-    const {isAdmin, isLoading} = useAuthStore();
-    const {fetchAlbums, fetchSongs, fetchStats} = useMusicStore()
+    const {isLoading} = useAuthStore();
+    const {fetchAlbums, fetchSongs, fetchUserStats} = useMusicStore()
 
     useEffect(() =>{
         fetchAlbums(),
         fetchSongs(),
-        fetchStats()
-    },[fetchAlbums, fetchSongs, fetchStats])
+        fetchUserStats()
+    },[fetchAlbums, fetchSongs,fetchUserStats ])
 
-    if (!isAdmin && isLoading) return <div>Unauthorized</div>
+    if (isLoading) return <div>Loading</div>
 
   return (
     <div className='min-h-screen bg-gradient-to-b from-zinc-900 via-zinc-900 to-black tex-zinc-100 p-8'>

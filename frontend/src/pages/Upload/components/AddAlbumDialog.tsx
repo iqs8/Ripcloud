@@ -13,11 +13,13 @@ import { axiosInstance } from "@/lib/axios";
 import { Plus, Upload } from "lucide-react";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
+import { useUser } from "@clerk/clerk-react";
 
 const AddAlbumDialog = () => {
 	const [albumDialogOpen, setAlbumDialogOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const fileInputRef = useRef<HTMLInputElement>(null);
+	const { user } = useUser();
 
 	const [newAlbum, setNewAlbum] = useState({
 		title: "",
@@ -44,7 +46,8 @@ const AddAlbumDialog = () => {
 
 			const formData = new FormData();
 			formData.append("title", newAlbum.title);
-			formData.append("artist", newAlbum.artist);
+			formData.append("artist", user?.id || "");
+			console.log( user?.id)
 			formData.append("releaseYear", newAlbum.releaseYear.toString());
 			formData.append("imageFile", imageFile);
 
@@ -115,7 +118,7 @@ const AddAlbumDialog = () => {
 							placeholder='Enter album title'
 						/>
 					</div>
-					<div className='space-y-2'>
+					{/* <div className='space-y-2'>
 						<label className='text-sm font-medium'>Artist</label>
 						<Input
 							value={newAlbum.artist}
@@ -123,7 +126,7 @@ const AddAlbumDialog = () => {
 							className='bg-zinc-800 border-zinc-700'
 							placeholder='Enter artist name'
 						/>
-					</div>
+					</div> */}
 					<div className='space-y-2'>
 						<label className='text-sm font-medium'>Release Year</label>
 						<Input
@@ -144,7 +147,8 @@ const AddAlbumDialog = () => {
 					<Button
 						onClick={handleSubmit}
 						className='bg-violet-500 hover:bg-violet-600'
-						disabled={isLoading || !imageFile || !newAlbum.title || !newAlbum.artist}
+						disabled={isLoading || !imageFile || !newAlbum.title}
+						// disabled={isLoading || !imageFile || !newAlbum.title || !newAlbum.artist}
 					>
 						{isLoading ? "Creating..." : "Add Album"}
 					</Button>

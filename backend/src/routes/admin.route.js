@@ -4,9 +4,10 @@ import {protectRoute, requireAdmin} from "../middleware/auth.middleware.js"
 
 const router = Router();
 
-router.use(protectRoute, requireAdmin)  // these functions run before all endpoints below
+// router.use(protectRoute, requireAdmin)  //temporarily remove admin requirements
+router.use(protectRoute )  // these functions run before all endpoints below
 
-router.get("/check", checkAdmin)
+router.get("/check", requireAdmin, checkAdmin)
 
 router.post('/songs', createSong);
 router.delete('/songs/:id', deleteSong)

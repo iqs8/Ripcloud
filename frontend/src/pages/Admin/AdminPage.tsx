@@ -12,13 +12,13 @@ import { AlbumsTabContent } from './components/AlbumsTabContent';
 export const AdminPage = () => {
 
     const {isAdmin, isLoading} = useAuthStore();
-    const {fetchAlbums, fetchSongs, fetchStats} = useMusicStore()
+    const {fetchAlbums, fetchAllSongs, fetchStats} = useMusicStore()
 
     useEffect(() =>{
         fetchAlbums(),
-        fetchSongs(),
+        fetchAllSongs(),
         fetchStats()
-    },[fetchAlbums, fetchSongs, fetchStats])
+    },[fetchAlbums, fetchAllSongs, fetchStats])
 
     if (!isAdmin && isLoading) return <div>Unauthorized</div>
 

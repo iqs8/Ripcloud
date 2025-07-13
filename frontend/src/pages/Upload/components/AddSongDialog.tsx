@@ -15,6 +15,7 @@ import { useMusicStore } from "@/stores/useMusicStore";
 import { Plus, Upload } from "lucide-react";
 import { useRef, useState } from "react";
 import toast from "react-hot-toast";
+import { useUser } from "@clerk/clerk-react";
 
 interface NewSong {
 	title: string;
@@ -27,12 +28,13 @@ const AddSongDialog = () => {
 	const { albums } = useMusicStore();
 	const [songDialogOpen, setSongDialogOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
+	const { user } = useUser();
 
 	const [newSong, setNewSong] = useState<NewSong>({
 		title: "",
 		artist: "",
 		album: "",
-		duration: "0",
+		duration: "",
 	});
 
 	const [files, setFiles] = useState<{ audio: File | null; image: File | null }>({
@@ -55,7 +57,9 @@ const AddSongDialog = () => {
 
 			formData.append("title", newSong.title);
 			formData.append("artist", newSong.artist);
-			formData.append("duration", newSong.duration);
+			formData.append("artist", user?.id || ""); // 3. Always use Clerk user ID
+			console.log("User id is ", user?.id)
+			formData.append("duration", newSong.duration || "100" );
 			if (newSong.album && newSong.album !== "none") {
 				formData.append("albumId", newSong.album);
 			}
@@ -165,7 +169,7 @@ const AddSongDialog = () => {
 						/>
 					</div>
 
-					<div className='space-y-2'>
+					{/* <div className='space-y-2'>
 						<label className='text-sm font-medium'>Artist</label>
 						<Input
 							value={newSong.artist}
@@ -183,7 +187,7 @@ const AddSongDialog = () => {
 							onChange={(e) => setNewSong({ ...newSong, duration: e.target.value || "0" })}
 							className='bg-zinc-800 border-zinc-700'
 						/>
-					</div>
+					</div> */}
 
 					<div className='space-y-2'>
 						<label className='text-sm font-medium'>Album (Optional)</label>
