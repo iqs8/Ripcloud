@@ -11,7 +11,7 @@ export const getAllSongs = async(req, res, next) => {
     }
 }
 
-export const getFeaturedSongs = async (req, res, next) => {
+export const getDefaultSongs = async (req, res, next) => {
     try {
         //get 6 random songs using mongo's aggregation pipeline
         const songs = await Song.aggregate([
@@ -35,7 +35,7 @@ export const getFeaturedSongs = async (req, res, next) => {
     }
 }
 
-export const getMadeForYouSongs = async (req, res, next) => {
+export const getMostListenedToSongs = async (req, res, next) => {
      try {
         //get 4 random songs using mongo's aggregation pipeline
         const songs = await Song.aggregate([
@@ -59,31 +59,11 @@ export const getMadeForYouSongs = async (req, res, next) => {
     }
 }
 
-export const getTrendingSongs = async (req, res, next) => {
-     try {
-        //get 4 random songs using mongo's aggregation pipeline
-        const songs = await Song.aggregate([
-            {
-                $sample: {size:6}
-            },
-            {
-            $project:{
-                _id:1,
-                title:1,
-                artist:1,
-                imageUrl:1,
-                audioUrl:1,
-                },
-            },
-        ])
-        res.json(songs);
-
-    } catch (error) {
-        next(error)
-    }
-    try {
-
-    } catch (error) {
-
-    }
+export const getSharedWithMeSongs = async (req, res, next) => {
+  try {
+    // Simulate no shared songs
+    res.json(null); // Will be interpreted as `null` in the frontend store
+  } catch (error) {
+    next(error);
+  }
 }

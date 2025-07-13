@@ -18,12 +18,16 @@ const HomePage = () => {
 
         const {initializeQueue} = usePlayerStore()
 
-        useEffect(() =>{
-            if (mostListenedToSongs.length > 0 && defaultSongs.length > 0 && sharedWithMeSongs.length >0) {
-                const allSongs = [...defaultSongs,...mostListenedToSongs,...sharedWithMeSongs]
-                initializeQueue(allSongs)
+        useEffect(() => {
+            if (mostListenedToSongs.length > 0 && defaultSongs.length > 0) {
+                const allSongs = [
+                ...defaultSongs,
+                ...mostListenedToSongs,
+                ...(sharedWithMeSongs ?? [])
+                ];
+                initializeQueue(allSongs);
             }
-        }, [initializeQueue, mostListenedToSongs, frameElement, sharedWithMeSongs])
+            }, [initializeQueue, mostListenedToSongs, defaultSongs, sharedWithMeSongs]);
 
         useEffect(() => {
             fetchDefaultSongs();

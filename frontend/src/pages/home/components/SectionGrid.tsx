@@ -6,13 +6,24 @@ import { PlayButton } from './PlayButton';
 
 type SectionGridProps = {
     title: string;
-    songs: Song[];
+    songs: Song[] | null;
     isLoading: boolean;
 }
 
 export const SectionGrid = ({title, songs, isLoading}: SectionGridProps) => {
     
     if (isLoading) return <SectionGridSkeleton/>
+
+    if (!songs || songs.length === 0) {
+  return (
+    <div className="mb-8">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-xl sm:text-2xl font-bold">{title}</h2>
+      </div>
+      <p className="text-zinc-400">nothing shared with you</p>
+    </div>
+  );
+}
   return (
     <div className='mb-8'>
         <div className='flex items-center justify-between mb-4'>

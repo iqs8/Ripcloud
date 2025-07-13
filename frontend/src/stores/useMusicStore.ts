@@ -10,7 +10,7 @@ interface MusicStore {
     error: string | null;
     currentAlbum: Album | null;
     mostListenedToSongs: Song[];
-    sharedWithMeSongs: Song[];
+    sharedWithMeSongs: Song[] | null;
     defaultSongs: Song[];
     stats:Stats
 
@@ -33,7 +33,7 @@ export const useMusicStore = create<MusicStore>((set) => ({
     error: null,
     currentAlbum: null,
     mostListenedToSongs: [],
-    sharedWithMeSongs: [],
+    sharedWithMeSongs: null,
     defaultSongs: [],
     stats:{
         totalSongs:0,
@@ -129,7 +129,7 @@ export const useMusicStore = create<MusicStore>((set) => ({
     fetchDefaultSongs: async () => {
         set({isLoading: true, error: null})
         try{
-            const response = await axiosInstance.get("/songs/featured")
+            const response = await axiosInstance.get("/songs/default")
             set({ defaultSongs: response.data})
         } catch (error: any) {
             set({ error: error.response.data.message})
@@ -141,7 +141,7 @@ export const useMusicStore = create<MusicStore>((set) => ({
     fetchMostListenedToSongs: async () => {
         set({ isLoading: true, error: null})
         try{ 
-            const response = await axiosInstance.get("/songs/made-for-you")
+            const response = await axiosInstance.get("/songs/most-listened-to")
             set({ mostListenedToSongs: response.data})
         } catch (error: any) {
             set({ error: error.response.data.message})
@@ -151,15 +151,17 @@ export const useMusicStore = create<MusicStore>((set) => ({
     },
 
     fetchSharedWithMeSongs: async () => {
-        set({ isLoading: true, error: null})
+        set({ isLoading: true, error: null });
         try {
-            const response = await axiosInstance.get("/songs/trending")
-            set({ sharedWithMeSongs: response.data})
+            const response = await axiosInstance.get("/songs/shared");
+            set({ sharedWithMeSongs: response.data });
         } catch (error: any) {
-            set({ error: error.response.data.message})
+            set({ error: error.response?.data?.message || "Failed to fetch" });
+            set({ sharedWithMeSongs: null }); // explicitly set to null on failure
         } finally {
-            set({ isLoading: false})
+            set({ isLoading: false });
         }
     }
+
 
 }))
