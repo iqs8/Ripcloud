@@ -8,28 +8,28 @@ import { usePlayerStore } from "@/stores/usePlayerStore";
 
 const HomePage = () => {
 
-    const {fetchFeaturedSongs, 
-        fetchMadeForYouSongs, 
-        fetchTrendingSongs, 
+    const {fetchDefaultSongs, 
+        fetchMostListenedToSongs, 
+        fetchSharedWithMeSongs, 
         isLoading, 
-        madeForYouSongs, 
-        featuredSongs, 
-        trendingSongs} = useMusicStore();
+        mostListenedToSongs, 
+        defaultSongs, 
+        sharedWithMeSongs} = useMusicStore();
 
         const {initializeQueue} = usePlayerStore()
 
         useEffect(() =>{
-            if (madeForYouSongs.length > 0 && featuredSongs.length > 0 && trendingSongs.length >0) {
-                const allSongs = [...featuredSongs,...madeForYouSongs,...trendingSongs]
+            if (mostListenedToSongs.length > 0 && defaultSongs.length > 0 && sharedWithMeSongs.length >0) {
+                const allSongs = [...defaultSongs,...mostListenedToSongs,...sharedWithMeSongs]
                 initializeQueue(allSongs)
             }
-        }, [initializeQueue, madeForYouSongs, frameElement, trendingSongs])
+        }, [initializeQueue, mostListenedToSongs, frameElement, sharedWithMeSongs])
 
         useEffect(() => {
-            fetchFeaturedSongs();
-            fetchMadeForYouSongs();
-            fetchTrendingSongs();
-        }, [fetchFeaturedSongs, fetchMadeForYouSongs, fetchTrendingSongs])
+            fetchDefaultSongs();
+            fetchMostListenedToSongs();
+            fetchSharedWithMeSongs();
+        }, [fetchDefaultSongs, fetchMostListenedToSongs, fetchSharedWithMeSongs])
 
 
     return (
@@ -41,8 +41,8 @@ const HomePage = () => {
                     <FeaturedSection/>
                 
                     <div className="space-y-8">
-                        <SectionGrid title="Most Listened To" songs={madeForYouSongs} isLoading={isLoading}/>
-                        <SectionGrid title="Shared With Me" songs={trendingSongs} isLoading={isLoading}/>
+                        <SectionGrid title="Most Listened To" songs={mostListenedToSongs} isLoading={isLoading}/>
+                        <SectionGrid title="Shared With Me" songs={sharedWithMeSongs} isLoading={isLoading}/>
                     </div>
                 </div>
 

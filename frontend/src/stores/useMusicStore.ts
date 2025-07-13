@@ -9,17 +9,17 @@ interface MusicStore {
     isLoading: boolean;
     error: string | null;
     currentAlbum: Album | null;
-    madeForYouSongs: Song[];
-    trendingSongs: Song[];
-    featuredSongs: Song[];
+    mostListenedToSongs: Song[];
+    sharedWithMeSongs: Song[];
+    defaultSongs: Song[];
     stats:Stats
 
 
     fetchAlbums: () => Promise<void>;
     fetchAlbumById: (id: string) => Promise<void>;
-    fetchMadeForYouSongs: () => Promise<void>;
-    fetchTrendingSongs: () => Promise<void>;
-    fetchFeaturedSongs: () => Promise<void>;
+    fetchMostListenedToSongs: () => Promise<void>;
+    fetchSharedWithMeSongs: () => Promise<void>;
+    fetchDefaultSongs: () => Promise<void>;
     fetchStats: () => Promise<void>;
     fetchSongs: () => Promise<void>;
     deleteSong: (id: string) => Promise<void>;
@@ -32,9 +32,9 @@ export const useMusicStore = create<MusicStore>((set) => ({
     isLoading:false,
     error: null,
     currentAlbum: null,
-    madeForYouSongs: [],
-    trendingSongs: [],
-    featuredSongs: [],
+    mostListenedToSongs: [],
+    sharedWithMeSongs: [],
+    defaultSongs: [],
     stats:{
         totalSongs:0,
         totalAlbums:0,
@@ -126,11 +126,11 @@ export const useMusicStore = create<MusicStore>((set) => ({
         }
     },
 
-    fetchFeaturedSongs: async () => {
+    fetchDefaultSongs: async () => {
         set({isLoading: true, error: null})
         try{
             const response = await axiosInstance.get("/songs/featured")
-            set({ featuredSongs: response.data})
+            set({ defaultSongs: response.data})
         } catch (error: any) {
             set({ error: error.response.data.message})
         } finally {
@@ -138,11 +138,11 @@ export const useMusicStore = create<MusicStore>((set) => ({
         }
     },
 
-    fetchMadeForYouSongs: async () => {
+    fetchMostListenedToSongs: async () => {
         set({ isLoading: true, error: null})
         try{ 
             const response = await axiosInstance.get("/songs/made-for-you")
-            set({ madeForYouSongs: response.data})
+            set({ mostListenedToSongs: response.data})
         } catch (error: any) {
             set({ error: error.response.data.message})
         } finally {
@@ -150,11 +150,11 @@ export const useMusicStore = create<MusicStore>((set) => ({
         }
     },
 
-    fetchTrendingSongs: async () => {
+    fetchSharedWithMeSongs: async () => {
         set({ isLoading: true, error: null})
         try {
             const response = await axiosInstance.get("/songs/trending")
-            set({ trendingSongs: response.data})
+            set({ sharedWithMeSongs: response.data})
         } catch (error: any) {
             set({ error: error.response.data.message})
         } finally {

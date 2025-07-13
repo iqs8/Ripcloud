@@ -9,6 +9,7 @@ import { ChatPage } from "./pages/chat/ChatPage";
 import { AlbumPage } from "./pages/album/AlbumPage";
 import { AdminPage } from "./pages/Admin/AdminPage";
 import {Toaster} from "react-hot-toast"
+import { UploadPage } from "./pages/Upload/UploadPage";
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
 
         <Route path="auth-callback" element={<AuthCallbackPage />} />
         <Route path="admin" element={<AdminPage />} />
+        <Route path="upload" element={<UploadPage />} />
 
 
         <Route element ={<MainLayout/>}>
