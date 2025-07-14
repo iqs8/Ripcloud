@@ -62,7 +62,7 @@ export const SectionGrid = ({title, songs, isLoading}: SectionGridProps) => {
                         {song.title}
                     </h3>
                     <p className='text-sm text-zinc-400 truncate'>
-                        {song.artist}
+                        {song.artistName || song.artist}
                     </p>
 
                 </div>

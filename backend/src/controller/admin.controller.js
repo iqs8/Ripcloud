@@ -31,7 +31,7 @@ export const createSong = async (req, res, next) => {
         if (!req.files || !req.files.audioFile || !req.files.imageFile) {
             return res.status(400).json({ message: "Please upload all files"})
         }
-        const {title, artist, albumId, duration} = req.body
+        const {title, artist, artistId, artistName, albumId, duration} = req.body
         const audioFile = req.files.audioFile
         const imageFile = req.files.imageFile
 
@@ -43,7 +43,9 @@ export const createSong = async (req, res, next) => {
 
         const song = new Song({
             title,
-            artist,
+            artist: artistId,
+            artistId,
+            artistName,
             audioUrl,
             imageUrl,
             duration,
@@ -91,7 +93,7 @@ export const deleteSong = async (req, res, next) => {
 
 export const createAlbum = async (req, res, next) => {
     try{
-        const {title, artist, releaseYear} = req.body
+        const {title, artist, artistId, artistName, releaseYear} = req.body
         const {imageFile} = req.files
 
         const imageUrl = await uploadToCloudinary(imageFile)
@@ -100,7 +102,9 @@ export const createAlbum = async (req, res, next) => {
 
         const album = new Album({
             title, 
-            artist, 
+            artist: artistId, 
+            artistId,
+            artistName,
             imageUrl, 
             releaseYear
         })

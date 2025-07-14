@@ -10,7 +10,7 @@ export const getAllUserAlbums = async (req, res, next) => {
 
         // Only return albums where artist is "Default" or the user's token
         const albums = await Album.find({
-            artist: { $in: ["Default", userId] }
+            artistId: { $in: ["Default", userId] }
         });
         res.status(200).json(albums)
     } catch (error) {

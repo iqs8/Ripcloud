@@ -23,7 +23,7 @@ if (error) return <p className='text-red-500 mb-4 text-lg'>{error}</p>
                 />
                 <div className='flex-1 p-4'>
                     <p className='font-medium truncate'>{song.title}</p>
-                    <p className='text-sm text-zinc-400 truncate'> {song.artist}</p>
+                    <p className='text-sm text-zinc-400 truncate'> {song.artistName || song.artist}</p>
                 </div>
                 <PlayButton song={song}/>
             </div>

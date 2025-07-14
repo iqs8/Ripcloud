@@ -20,6 +20,8 @@ import { useUser } from "@clerk/clerk-react";
 interface NewSong {
 	title: string;
 	artist: string;
+	artistId: string;
+	artistName: string;
 	album: string;
 	duration: string;
 }
@@ -33,6 +35,8 @@ const AddSongDialog = () => {
 	const [newSong, setNewSong] = useState<NewSong>({
 		title: "",
 		artist: "",
+		artistId: user?.id || "",
+		artistName: user?.fullName || user?.username || "Unknown Artist",
 		album: "",
 		duration: "",
 	});
@@ -56,8 +60,9 @@ const AddSongDialog = () => {
 			const formData = new FormData();
 
 			formData.append("title", newSong.title);
-			formData.append("artist", newSong.artist);
 			formData.append("artist", user?.id || ""); // 3. Always use Clerk user ID
+			formData.append("artistId", user?.id || "");
+			formData.append("artistName", user?.fullName || user?.username || "Unknown Artist");
 			console.log("User id is ", user?.id)
 			formData.append("duration", newSong.duration || "100" );
 			if (newSong.album && newSong.album !== "none") {
@@ -76,8 +81,10 @@ const AddSongDialog = () => {
 			setNewSong({
 				title: "",
 				artist: "",
+				artistId: user?.id || "",
+				artistName: user?.fullName || user?.username || "Unknown Artist",
 				album: "",
-				duration: "0",
+				duration: "",
 			});
 
 			setFiles({

@@ -62,7 +62,7 @@ export const AlbumPage = () => {
                             </p>
                             <h1 className='text-7xl font-bold my-4'>{currentAlbum?.title}</h1>
                             <div className='flex items-center gap-2 text-sm text-zinc-100'>
-                                <span className='font-medium text-white'>{currentAlbum?.artist}</span>
+                                <span className='font-medium text-white'>{currentAlbum?.artistName || currentAlbum?.artist}</span>
                                 <span>• {currentAlbum?.songs.length} songs</span>
                                 <span>• {currentAlbum?.releaseYear}</span>
                             </div>
@@ -125,7 +125,7 @@ export const AlbumPage = () => {
 
                                                 <div>
                                                     <div className={`font-medium text-white`}> {song.title}</div>
-                                                    <div>{song.artist}</div>
+                                                    <div>{song.artistName || song.artist}</div>
                                                 </div>
                                             </div>
                                             <div className='flex items-center'>{song.createdAt.split("T")[0]}</div> 

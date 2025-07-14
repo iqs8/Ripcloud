@@ -9,6 +9,14 @@ const songSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    artistId: {
+        type: String,
+        required: true
+    },
+    artistName: {
+        type: String,
+        required: true
+    },
     imageUrl:{
         type: String,
         required:true

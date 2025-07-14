@@ -19,7 +19,7 @@ export const getStats = async (req, res, next) => {
                 },
                 {
                     $group:{
-                        _id:"$artist",
+                        _id:"$artistId",
                     }
                 },
                 {
@@ -48,8 +48,8 @@ export const getUserStats = async (req, res, next) => {
 
         // Count albums and songs where artist matches userId
         const [albumCount, songCount] = await Promise.all([
-            Album.countDocuments({ artist: userId }),
-            Song.countDocuments({ artist: userId })
+            Album.countDocuments({ artistId: userId }),
+            Song.countDocuments({ artistId: userId })
         ]);
 
         res.status(200).json({

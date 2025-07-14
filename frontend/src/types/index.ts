@@ -2,6 +2,8 @@ export interface Song {
     _id: string;
     title: string;
     artist: string;
+    artistId: string;
+    artistName: string;
     albumId: string | null;
     imageUrl: string;
     audioUrl: string;
@@ -14,6 +16,8 @@ export interface Album {
     _id: string;
     title: string;
     artist: string;
+    artistId: string;
+    artistName: string;
     imageUrl: string;
     releaseYear: number;
     songs: Song[];

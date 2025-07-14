@@ -8,7 +8,7 @@ export const getAllUserSongs = async(req, res, next) => {
 
         // Only return songs where artist is "Default" or the user's token
         const songs = await Song.find({
-            artist: { $in: ["Default", userId] }
+            artistId: { $in: ["Default", userId] }
         }).sort({createdAt: -1});
         res.json(songs)
     } catch (error) {

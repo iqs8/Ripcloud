@@ -47,6 +47,8 @@ const AddAlbumDialog = () => {
 			const formData = new FormData();
 			formData.append("title", newAlbum.title);
 			formData.append("artist", user?.id || "");
+			formData.append("artistId", user?.id || "");
+			formData.append("artistName", user?.fullName || user?.username || "Unknown Artist");
 			console.log( user?.id)
 			formData.append("releaseYear", newAlbum.releaseYear.toString());
 			formData.append("imageFile", imageFile);
