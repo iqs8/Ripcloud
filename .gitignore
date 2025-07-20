@@ -26,6 +26,8 @@ dist-ssr
 tmp/
 frontend/dist/
 
+backend/src/AllNamesToAdmin.js
+
 **/.env
 setup-notes.doc.txt
 prod-notes.txt
